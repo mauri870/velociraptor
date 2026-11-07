@@ -1,0 +1,38 @@
+{
+ "source": "the paper's Table of the whole-calculation times (medians of 5 on one AMD Radeon RX 7900 XTX and a 32-thread AMD Ryzen 9 9950X3D, one session, the device alone; the author's records, which this repository does not hold)",
+ "draws": 100000,
+ "stars_tic": [
+  396212145,
+  206361339,
+  42071226,
+  201354238
+ ],
+ "fpp_shift_3_nodes_vs_64": 9.1e-06,
+ "reference_is": "the published TRICERATOPS code with its host-side lookups of the limb-darkening and stellar tables removed",
+ "rows": [
+  {
+   "tic": 396212145,
+   "reference": 4.151,
+   "f64_20_midpoints": 1.95,
+   "default": 0.483
+  },
+  {
+   "tic": 206361339,
+   "reference": 1.155,
+   "f64_20_midpoints": 0.633,
+   "default": 0.383
+  },
+  {
+   "tic": 42071226,
+   "reference": 3.033,
+   "f64_20_midpoints": 1.809,
+   "default": 0.545
+  },
+  {
+   "tic": 201354238,
+   "reference": 5.251,
+   "f64_20_midpoints": 3.954,
+   "default": 0.776
+  }
+ ]
+}

@@ -1,0 +1,85 @@
+{
+ "results": [
+  {
+   "label": "The three scenario likelihoods of TRICERATOPS, 10000 draws and 1000 points each",
+   "machine": "AMD Ryzen 9 9950X3D 16-Core Processor, AMD Radeon RX 7900 XTX (ROCm 7.2.53211)",
+   "command": "bench.py --skip velociraptor-cpu:100000 --json ...",
+   "versions": "python 3.12.13, numpy 1.26.4, numba 0.68.1, torch 2.12.0+rocm7.2, triton-rocm 3.7.0, triceratops 1.1.0, pytransit 2.2.0",
+   "rows": [
+    {
+     "method": "TRICERATOPS 1.1.0, numba path, 32 threads",
+     "scenarios": 30000,
+     "seconds": 0.5442009070029599
+    },
+    {
+     "method": "velociraptor, torch on the CPU, 32 threads",
+     "scenarios": 30000,
+     "seconds": 69.6847488659987
+    },
+    {
+     "method": "velociraptor, fused kernel on the device, 20 midpoints",
+     "scenarios": 30000,
+     "seconds": 0.421469254004478
+    },
+    {
+     "method": "velociraptor, fused kernel on the device, 20 midpoints, first pass in float32",
+     "scenarios": 30000,
+     "seconds": 0.19005612500041025
+    },
+    {
+     "method": "velociraptor, fused kernel on the device, 3 Gauss-Legendre nodes in the exposure",
+     "scenarios": 30000,
+     "seconds": 0.10493817200040212
+    },
+    {
+     "method": "velociraptor, install(\"cuda\") with no arguments: 3 Gauss-Legendre nodes, first pass in float32",
+     "scenarios": 30000,
+     "seconds": 0.05158343399671139
+    }
+   ],
+   "not_run": []
+  },
+  {
+   "label": "The three scenario likelihoods of TRICERATOPS, 100000 draws and 1000 points each",
+   "machine": "AMD Ryzen 9 9950X3D 16-Core Processor, AMD Radeon RX 7900 XTX (ROCm 7.2.53211)",
+   "command": "bench.py --skip velociraptor-cpu:100000 --json ...",
+   "versions": "python 3.12.13, numpy 1.26.4, numba 0.68.1, torch 2.12.0+rocm7.2, triton-rocm 3.7.0, triceratops 1.1.0, pytransit 2.2.0",
+   "rows": [
+    {
+     "method": "TRICERATOPS 1.1.0, numba path, 32 threads",
+     "scenarios": 300000,
+     "seconds": 5.107198783996864
+    },
+    {
+     "method": "velociraptor, fused kernel on the device, 20 midpoints",
+     "scenarios": 300000,
+     "seconds": 4.198845451996021
+    },
+    {
+     "method": "velociraptor, fused kernel on the device, 20 midpoints, first pass in float32",
+     "scenarios": 300000,
+     "seconds": 1.8950280450007995
+    },
+    {
+     "method": "velociraptor, fused kernel on the device, 3 Gauss-Legendre nodes in the exposure",
+     "scenarios": 300000,
+     "seconds": 1.024809525006276
+    },
+    {
+     "method": "velociraptor, install(\"cuda\") with no arguments: 3 Gauss-Legendre nodes, first pass in float32",
+     "scenarios": 300000,
+     "seconds": 0.49350046800100245
+    }
+   ],
+   "not_run": [
+    {
+     "method": "velociraptor, torch on the CPU, 32 threads",
+     "reason": "a call of this row took 44 s at 10000 draws and a call at 100000 draws is ten times the work, and the row has six calls"
+    }
+   ]
+  }
+ ],
+ "notes": {
+  "velociraptor, torch on the CPU, 32 threads": "the row measured 42.6, 51.1 and 70.2 s in three runs, with no known cause for the spread; it is a reference path and not a speed to rely on."
+ }
+}

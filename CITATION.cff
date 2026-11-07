@@ -1,0 +1,122 @@
+cff-version: 1.2.0
+title: "velociraptor"
+message: "If you use this package, please cite the paper (preferred-citation), the version of TRICERATOPS it computes with and the closed-form light curve it implements (references)."
+type: software
+authors:
+  - family-names: "Meneguzzo"
+    given-names: "Mauri de Souza"
+version: "0.1.0"
+date-released: 2026-11-07
+license: MIT
+repository-code: "https://github.com/mauri870/velociraptor"
+url: "https://github.com/mauri870/velociraptor"
+abstract: "A fast GPU drop-in for TRICERATOPS that tells transiting exoplanets from false positives, with an exact transit light curve."
+preferred-citation:
+  type: unpublished
+  title: "velociraptor: exact light curves and GPU-accelerated false-positive probabilities for TESS planet candidates"
+  authors:
+    - family-names: "Meneguzzo"
+      given-names: "Mauri de Souza"
+references:
+  - type: article
+    title: "Vetting of 384 TESS Objects of Interest with TRICERATOPS and Statistical Validation of 12 Planet Candidates"
+    authors:
+      - family-names: "Giacalone"
+        given-names: "Steven"
+      - family-names: "Dressing"
+        given-names: "Courtney D."
+      - family-names: "Jensen"
+        given-names: "Eric L. N."
+      - family-names: "Collins"
+        given-names: "Karen A."
+      - family-names: "Ricker"
+        given-names: "George R."
+      - family-names: "Vanderspek"
+        given-names: "Roland"
+      - family-names: "Seager"
+        given-names: "S."
+      - family-names: "Winn"
+        given-names: "Joshua N."
+      - family-names: "Jenkins"
+        given-names: "Jon M."
+      - family-names: "Barclay"
+        given-names: "Thomas"
+      - family-names: "Barkaoui"
+        given-names: "Khalid"
+      - family-names: "Cadieux"
+        given-names: "Charles"
+      - family-names: "Charbonneau"
+        given-names: "David"
+      - family-names: "Collins"
+        given-names: "Kevin I."
+      - family-names: "Conti"
+        given-names: "Dennis M."
+      - family-names: "Doyon"
+        given-names: "Rene"
+      - family-names: "Evans"
+        given-names: "Phil"
+      - family-names: "Ghachoui"
+        given-names: "Mourad"
+      - family-names: "Gillon"
+        given-names: "Michael"
+      - family-names: "Guerrero"
+        given-names: "Natalia M."
+      - family-names: "Hart"
+        given-names: "Rhodes"
+      - family-names: "Jehin"
+        given-names: "Emmanuel"
+      - family-names: "Kielkopf"
+        given-names: "John F."
+      - family-names: "McLean"
+        given-names: "Brian"
+      - family-names: "Murgas"
+        given-names: "Felipe"
+      - family-names: "Palle"
+        given-names: "Enric"
+      - family-names: "Parviainen"
+        given-names: "Hannu"
+      - family-names: "Pozuelos"
+        given-names: "Francisco J."
+      - family-names: "Relles"
+        given-names: "Howard M."
+      - family-names: "Shporer"
+        given-names: "Avi"
+      - family-names: "Socia"
+        given-names: "Quentin"
+      - family-names: "Stockdale"
+        given-names: "Chris"
+      - family-names: "Tan"
+        given-names: "Thiam-Guan"
+      - family-names: "Torres"
+        given-names: "Guillermo"
+      - family-names: "Twicken"
+        given-names: "Joseph D."
+      - family-names: "Waalkes"
+        given-names: "William C."
+      - family-names: "Waite"
+        given-names: "Ian A."
+    journal: "The Astronomical Journal"
+    year: 2021
+    volume: 161
+    start: 24
+    doi: "10.3847/1538-3881/abc6af"
+  - type: article
+    title: "Analytic Planetary Transit Light Curves and Derivatives for Stars with Polynomial Limb Darkening"
+    authors:
+      - family-names: "Agol"
+        given-names: "Eric"
+      - family-names: "Luger"
+        given-names: "Rodrigo"
+      - family-names: "Foreman-Mackey"
+        given-names: "Daniel"
+    journal: "The Astronomical Journal"
+    year: 2020
+    volume: 159
+    issue: 3
+    start: 123
+    doi: "10.3847/1538-3881/ab4fee"
+keywords:
+  - astronomy
+  - exoplanets
+  - false positive probability
+  - transit model

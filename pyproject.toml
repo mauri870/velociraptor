@@ -1,0 +1,100 @@
+[project]
+name = "velociraptor-gpu"
+version = "0.1.0"
+description = "A fast GPU drop-in for TRICERATOPS that tells transiting exoplanets from false positives, with an exact transit light curve."
+dynamic = ["readme"]
+authors = [{ name = "Mauri de Souza Meneguzzo" }]
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY/TRICERATOPS-LICENSE"]
+keywords = ["astronomy", "exoplanets", "transit", "limb darkening", "TRICERATOPS", "GPU", "PyTorch"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Astronomy",
+]
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=1.26",
+]
+
+[project.urls]
+Repository = "https://github.com/mauri870/velociraptor"
+Changelog = "https://github.com/mauri870/velociraptor/blob/HEAD/CHANGELOG.md"
+
+[project.optional-dependencies]
+# the accelerator sits on top of TRICERATOPS 1.1.0 (MIT, https://github.com/stevengiacalone/triceratops); it declares PyTransit 2.2 (GPL) as its own dependency; the source of this package does not import or copy it, and only the comparison in tests/test_quadratic.py and validation/pytransit_grid.py imports it
+# setuptools below 82: PyTransit 2.2.0 imports pkg_resources, which setuptools 82 and later do not ship
+triceratops = ["triceratops==1.1.0", "setuptools<82"]
+# the device layer
+torch = ["torch>=2.5"]
+
+[dependency-groups]
+# the tests; what `uv run pytest` and `uv sync` install in a clone of the repository (dev)
+test = ["pytest", "pyyaml", "mpmath"]
+dev = [
+    { include-group = "test" },
+    "ruff>=0.17.3",
+]
+# the build of torch for each kind of accelerator; exactly one is chosen: `uv sync --group rocm`. Dependency groups and not extras, which a wheel would publish with a requirement that names no build of torch
+cpu = ["torch>=2.5"]
+cu128 = ["torch>=2.5"]
+rocm = ["torch==2.12.0", "triton-rocm==3.7.0; sys_platform == 'linux'"]
+
+[build-system]
+requires = ["hatchling>=1.27", "hatch-fancy-pypi-readme>=24.1.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata.hooks.fancy-pypi-readme]
+content-type = "text/markdown"
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+path = "README.md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/velociraptor"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "benchmarks", "THIRD_PARTY", "LICENSE", "README.md", "CITATION.cff", "CHANGELOG.md", "pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+faulthandler_timeout = 300  # a test that runs longer prints the stack of every thread, so that a hang on a CI runner is seen and not cancelled by its time limit
+markers = [
+    "gpu: may run on the device (the tests also run on a CPU, slowly)",
+    "timing: times the device",
+    "default_precision: runs with the precision the package ships with, not float64",
+]
+
+[tool.uv]
+conflicts = [[{ group = "cpu" }, { group = "cu128" }, { group = "rocm" }]]
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cpu", group = "cpu" },
+  { index = "pytorch-cu128", group = "cu128" },
+  { index = "pytorch-rocm", group = "rocm" },
+]
+triton-rocm = [{ index = "pytorch-rocm", group = "rocm" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-rocm"
+url = "https://download.pytorch.org/whl/rocm7.2"
+explicit = true
+
+[tool.ruff.lint]
+# Rules with findings in the tree; new rules apply in full. Remove a code when its findings are fixed.
+ignore = ["B023", "C408", "F841", "RUF007", "RUF059", "S102", "SIM115", "SIM117", "UP031"]

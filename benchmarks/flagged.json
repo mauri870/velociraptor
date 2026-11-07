@@ -1,0 +1,23 @@
+{
+ "command": "flagged.py",
+ "draws": 10000,
+ "points": 1000,
+ "samples": 20,
+ "rows": [
+  {
+   "scenario": "planet",
+   "pairs": 10000000,
+   "flagged": 1470487
+  },
+  {
+   "scenario": "eclipsing binary",
+   "pairs": 10000000,
+   "flagged": 2632578
+  },
+  {
+   "scenario": "twin at twice the period",
+   "pairs": 10000000,
+   "flagged": 3296248
+  }
+ ]
+}
