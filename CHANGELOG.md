@@ -1,5 +1,11 @@
 # Changes
 
+## Unreleased
+
+### Changed
+
+- The minimum version of `numpy` follows [SPEC 0](https://scientific-python.org/specs/spec-0000/): `numpy>=2.2`. CI installs the lowest version of every direct dependency on Python 3.12 and runs the tests against it.
+
 ## 0.1.0 - 2026-11-07
 
 - `velociraptor.allocation.batch_effective_sample_size` and `evidence_report`: the number of batches that carry a call's evidence, the call that carries the scatter of the outputs, its batch effective sample size and the ratio of that to its number of batches; `batch_estimates` returns the same three numbers beside the error. They are reported with no verdict.

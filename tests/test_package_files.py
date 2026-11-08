@@ -36,7 +36,9 @@ def test_the_notice_of_triceratops_is_kept_and_its_pin_is_in_the_metadata():
 
 def test_the_model_needs_only_numpy_and_the_device_builds_of_torch_are_groups():
     metadata = tomllib.loads((ROOT / "pyproject.toml").read_text())
-    assert metadata["project"]["dependencies"] == ["numpy>=1.26"]
+    assert metadata["project"]["dependencies"] == ["numpy>=1.26; python_version < '3.13'", "numpy>=2.2; python_version >= '3.13'"], (
+        "the 3.12 floor is uncapped; triceratops 1.1.0 caps numpy<2 there in its own metadata, and SPEC 0's minimum at 2026-11-08 holds on 3.13, where that pin allows it"
+    )
     groups = metadata["dependency-groups"]
     assert {"cpu", "cu128", "rocm", "test", "dev"} <= set(groups)
     assert {"include-group": "test"} in groups["dev"] and any(str(entry).startswith("ruff") for entry in groups["dev"])
@@ -73,5 +75,5 @@ def test_the_readme_and_the_citation_file_give_the_title_of_the_paper_in_one_lin
 def test_the_triceratops_extra_caps_setuptools_below_82_because_pytransit_imports_pkg_resources_and_the_readme_says_so():
     """PyTransit 2.2.0 imports pkg_resources, which setuptools 82 and later do not ship; with 84 forced, `import triceratops.triceratops` raised ModuleNotFoundError, and with 81.0.0 it imported."""
     extra = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"]["optional-dependencies"]["triceratops"]
-    assert "setuptools<82" in extra
+    assert "setuptools>=60,<82" in extra, "a floor was added so `uv sync --resolution lowest-direct` installs a wheel rather than building setuptools's own pre-wheel era; the cap below 82 stands"
     assert "setuptools" in (ROOT / "README.md").read_text().split("## Getting started")[0]

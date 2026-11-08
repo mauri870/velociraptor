@@ -1,5 +1,7 @@
 # velociraptor
 
+[![SPEC 0 — Minimum Supported Dependencies](https://img.shields.io/badge/SPEC-0-green?labelColor=%23004811&color=%235CA038)](https://scientific-python.org/specs/spec-0000/)
+
 velociraptor runs the likelihoods of [TRICERATOPS](https://github.com/stevengiacalone/triceratops) on a GPU, with an exact transit light curve, and states the Monte Carlo error of the probabilities that TRICERATOPS reports. TRICERATOPS estimates how likely it is that a transit signal in a TESS light curve is a false positive: an eclipsing binary, a blend with a nearby star or a companion of the target. The draws, the priors and the probabilities are TRICERATOPS's own.
 
 If you use velociraptor, please cite [velociraptor: exact light curves and GPU-accelerated false-positive probabilities for TESS planet candidates](paper/main.pdf), TRICERATOPS and the closed-form light curve; `CITATION.cff` lists the references.

@@ -18,7 +18,9 @@ classifiers = [
 ]
 requires-python = ">=3.12"
 dependencies = [
-    "numpy>=1.26",
+    # the floor on 3.12 stays 1.26, uncapped: the <2 that TRICERATOPS 1.1.0 (the triceratops extra) needs there is its own metadata's, read 2026-11-08, and already enforced when that extra is installed; a user with no extra keeps numpy 2.x on 3.12.
+    "numpy>=1.26; python_version < '3.13'",
+    "numpy>=2.2; python_version >= '3.13'",  # SPEC 0's floor, where TRICERATOPS 1.1.0 allows it (its own metadata pins numpy>=2.1 on 3.13)
 ]
 
 [project.urls]
@@ -28,13 +30,14 @@ Changelog = "https://github.com/mauri870/velociraptor/blob/HEAD/CHANGELOG.md"
 [project.optional-dependencies]
 # the accelerator sits on top of TRICERATOPS 1.1.0 (MIT, https://github.com/stevengiacalone/triceratops); it declares PyTransit 2.2 (GPL) as its own dependency; the source of this package does not import or copy it, and only the comparison in tests/test_quadratic.py and validation/pytransit_grid.py imports it
 # setuptools below 82: PyTransit 2.2.0 imports pkg_resources, which setuptools 82 and later do not ship
-triceratops = ["triceratops==1.1.0", "setuptools<82"]
+triceratops = ["triceratops==1.1.0", "setuptools>=60,<82"]  # >=60: the lowest with no legacy build-time quirks under --resolution lowest-direct (checked 2026-11-08); <82: PyTransit 2.2.0 imports pkg_resources
 # the device layer
 torch = ["torch>=2.5"]
 
 [dependency-groups]
-# the tests; what `uv run pytest` and `uv sync` install in a clone of the repository (dev)
-test = ["pytest", "pyyaml", "mpmath"]
+# pytest and pyyaml had no floor, so `uv sync --resolution lowest-direct` tries each package's oldest PyPI release; both use a pre-wheel setup.py that downloads an old setuptools over plain HTTP and 403s today.
+# Each floor below is the lowest release that installs from a wheel on Python 3.12 (checked 2026-11-08); neither is a SPEC 0 window
+test = ["pytest>=7.0", "pyyaml>=6.0.1", "mpmath"]
 dev = [
     { include-group = "test" },
     "ruff>=0.17.3",
@@ -71,6 +74,7 @@ markers = [
 
 [tool.uv]
 conflicts = [[{ group = "cpu" }, { group = "cu128" }, { group = "rocm" }]]
+required-environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
 
 [tool.uv.sources]
 torch = [
