@@ -4,7 +4,8 @@
 
 ### Changed
 
-- The minimum version of `numpy` follows [SPEC 0](https://scientific-python.org/specs/spec-0000/): `numpy>=2.2`. CI installs the lowest version of every direct dependency on Python 3.12 and runs the tests against it.
+- The minimum version of `numpy` follows [SPEC 0](https://scientific-python.org/specs/spec-0000/): `numpy>=2.2`. CI installs the lowest version of every direct dependency on Python 3.13 and runs the tests against it.
+- `requires-python` becomes `>=3.13` (SPEC 0 dropped 3.12 on 2026-10-01), and the conditional `numpy>=1.26; python_version < '3.13'` floor is dropped along with it. CI's matrix moves from 3.12/3.13 to 3.13 and 3.14: the `triceratops` extra's full dependency closure (triceratops, pytransit, numba, tables and the rest) installs and its tests pass on 3.14, confirmed in a fresh clone.
 
 ## 0.1.0 - 2026-11-07
 

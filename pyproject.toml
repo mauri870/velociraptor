@@ -12,15 +12,13 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Scientific/Engineering :: Astronomy",
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 dependencies = [
-    # the floor on 3.12 stays 1.26, uncapped: the <2 that TRICERATOPS 1.1.0 (the triceratops extra) needs there is its own metadata's, read 2026-11-08, and already enforced when that extra is installed; a user with no extra keeps numpy 2.x on 3.12.
-    "numpy>=1.26; python_version < '3.13'",
-    "numpy>=2.2; python_version >= '3.13'",  # SPEC 0's floor, where TRICERATOPS 1.1.0 allows it (its own metadata pins numpy>=2.1 on 3.13)
+    "numpy>=2.2",  # SPEC 0's floor, where TRICERATOPS 1.1.0 allows it (its own metadata pins numpy>=2.1 on 3.13)
 ]
 
 [project.urls]
@@ -36,7 +34,7 @@ torch = ["torch>=2.5"]
 
 [dependency-groups]
 # pytest and pyyaml had no floor, so `uv sync --resolution lowest-direct` tries each package's oldest PyPI release; both use a pre-wheel setup.py that downloads an old setuptools over plain HTTP and 403s today.
-# Each floor below is the lowest release that installs from a wheel on Python 3.12 (checked 2026-11-08); neither is a SPEC 0 window
+# Each floor below is the lowest release that installs from a wheel on Python 3.13 (checked 2026-11-08); neither is a SPEC 0 window
 test = ["pytest>=7.0", "pyyaml>=6.0.1", "mpmath"]
 dev = [
     { include-group = "test" },

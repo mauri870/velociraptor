@@ -36,9 +36,7 @@ def test_the_notice_of_triceratops_is_kept_and_its_pin_is_in_the_metadata():
 
 def test_the_model_needs_only_numpy_and_the_device_builds_of_torch_are_groups():
     metadata = tomllib.loads((ROOT / "pyproject.toml").read_text())
-    assert metadata["project"]["dependencies"] == ["numpy>=1.26; python_version < '3.13'", "numpy>=2.2; python_version >= '3.13'"], (
-        "the 3.12 floor is uncapped; triceratops 1.1.0 caps numpy<2 there in its own metadata, and SPEC 0's minimum at 2026-11-08 holds on 3.13, where that pin allows it"
-    )
+    assert metadata["project"]["dependencies"] == ["numpy>=2.2"], "SPEC 0's minimum at 2026-11-08, which triceratops 1.1.0 allows on 3.13 (its own metadata pins numpy>=2.1 there)"
     groups = metadata["dependency-groups"]
     assert {"cpu", "cu128", "rocm", "test", "dev"} <= set(groups)
     assert {"include-group": "test"} in groups["dev"] and any(str(entry).startswith("ruff") for entry in groups["dev"])

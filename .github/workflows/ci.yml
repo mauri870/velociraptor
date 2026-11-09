@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.12", "3.13"]
+        python-version: ["3.13", "3.14"]
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
@@ -28,6 +28,22 @@ jobs:
       - name: Tests
         run: uv run --group cpu pytest tests -q
 
+  triceratops:
+    # The package exists to run TRICERATOPS; this job is the only one that installs it and runs the tests that need it.
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.2"
+          python-version: "3.13"
+          enable-cache: true
+      - name: Install the package with its test dependencies, the CPU build of torch and the triceratops extra
+        run: uv sync --group cpu --extra triceratops
+      - name: Tests
+        run: uv run --group cpu --extra triceratops pytest tests -q
+
   lowest:
     # SPEC 0: the lowest versions the dependencies declare must still work, not only the newest uv resolves.
     runs-on: ubuntu-latest
@@ -37,12 +53,12 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           version: "0.11.2"
-          python-version: "3.12"
+          python-version: "3.13"
           enable-cache: true
       - name: Install the package at the lowest version of every direct dependency
         run: uv sync --resolution lowest-direct --group cpu
       - name: Tests
-        run: uv run --group cpu pytest tests -q
+        run: uv run --no-sync --group cpu pytest tests -q
 
   lint:
     runs-on: ubuntu-latest

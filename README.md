@@ -30,7 +30,7 @@ uv pip install torch --index-url https://download.pytorch.org/whl/rocm7.2   # cu
 uv pip install "velociraptor-gpu[triceratops] @ git+https://github.com/mauri870/velociraptor@v0.1.0"
 ```
 
-velociraptor needs Python 3.12 or later, numpy 1.26 or later and, for the device layer, torch 2.5 or later. The device kernel needs Triton, which the ROCm and CUDA builds of torch install with them. The light curve alone (`quadratic_flux`) needs numpy only. The tests run on Python 3.12 and 3.13. TRICERATOPS 1.1.0 takes numpy below 2 on Python 3.12 and numpy 2.1 or later and scipy 1.14 or later on 3.13; the accuracy tables were computed with numpy 1.26.4, and under numpy 2.1 or later their reference figures differ slightly.
+velociraptor needs Python 3.13 or later, numpy 2.2 or later and, for the device layer, torch 2.5 or later. The device kernel needs Triton, which the ROCm and CUDA builds of torch install with them. The light curve alone (`quadratic_flux`) needs numpy only. The tests run on Python 3.13 and 3.14. TRICERATOPS 1.1.0 takes numpy 2.1 or later and scipy 1.14 or later on 3.13 and later; the accuracy tables were computed with numpy 1.26.4, and under numpy 2.1 or later their reference figures differ slightly.
 
 TRICERATOPS 1.1.0 requires PyTransit, which is licensed under the GPL and is installed as TRICERATOPS's own dependency; see Licence.
 
@@ -198,7 +198,7 @@ uv run python benchmarks/tables.py
 
 ## Tests
 
-From a clone, run `uv run --group cpu pytest tests -q`, or `--group rocm` or `--group cu128` for a device build of torch. The tests that may run on a device run their CPU path under the `cpu` group, and those that need PyTransit or Triton skip where it is missing. CI runs the suite on the CPU with Python 3.12 and 3.13.
+From a clone, run `uv run --group cpu pytest tests -q`, or `--group rocm` or `--group cu128` for a device build of torch. The tests that may run on a device run their CPU path under the `cpu` group, and those that need PyTransit or Triton skip where it is missing. CI runs the suite on the CPU with Python 3.13 and 3.14.
 
 ## Attribution
 
