@@ -1,6 +1,6 @@
 [project]
 name = "velociraptor-gpu"
-version = "0.1.0"
+version = "0.2.0"
 description = "A fast GPU drop-in for TRICERATOPS that tells transiting exoplanets from false positives, with an exact transit light curve."
 dynamic = ["readme"]
 authors = [{ name = "Mauri de Souza Meneguzzo" }]

@@ -5,8 +5,8 @@ type: software
 authors:
   - family-names: "Meneguzzo"
     given-names: "Mauri de Souza"
-version: "0.1.0"
-date-released: 2026-11-07
+version: "0.2.0"
+date-released: 2026-11-09
 license: MIT
 repository-code: "https://github.com/mauri870/velociraptor"
 url: "https://github.com/mauri870/velociraptor"
