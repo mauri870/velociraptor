@@ -5,6 +5,7 @@ type: software
 authors:
   - family-names: "Meneguzzo"
     given-names: "Mauri de Souza"
+    orcid: "https://orcid.org/0009-0000-0032-3262"
 version: "0.2.0"
 date-released: 2026-11-09
 license: MIT
@@ -17,6 +18,7 @@ preferred-citation:
   authors:
     - family-names: "Meneguzzo"
       given-names: "Mauri de Souza"
+      orcid: "https://orcid.org/0009-0000-0032-3262"
 references:
   - type: article
     title: "Vetting of 384 TESS Objects of Interest with TRICERATOPS and Statistical Validation of 12 Planet Candidates"
